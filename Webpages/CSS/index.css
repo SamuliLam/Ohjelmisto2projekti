@@ -1,0 +1,41 @@
+html, body {
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    background-image: url("");
+    background-size: cover;
+}
+
+.container {
+    min-height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 0 2em 2em;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+    gap: 4em;
+    border: 1px solid black;
+    background-color: aqua;
+}
+
+button {
+    font-size: 1.5em;
+    margin-top: 1em;
+    border-radius: 0.5em;
+    border: 1px solid black;
+    background-color: white;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+
+}
+button:hover {
+    background-color: #e6e6e6;
+}
