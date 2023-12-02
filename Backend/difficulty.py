@@ -1,4 +1,5 @@
-import sqlconnection
+from Backend import sqlconnection
+
 
 def return_difficulty(mouseclick):
     cursor = sqlconnection.connection.cursor()
