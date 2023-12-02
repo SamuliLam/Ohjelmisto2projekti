@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Optifly1.6</title>
-    <script src="{{url_for('static', filename='/JavaScript/script.js')}}" defer></script>
     <link href="{{url_for('static', filename='CSS/index.css')}}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -11,7 +10,7 @@
     <h1>OptiFly 1.6</h1>
     <div class="button_container">
         <div class="newGame">
-            <button class="buttons" id="newGame">New Game</button>
+            <a href="/difficulty" class="buttons">New Game</a>
             <ul>
                 <li>
                     #1
