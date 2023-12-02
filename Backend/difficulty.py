@@ -1,30 +1,10 @@
-import sql_connection
+import sqlconnection
 
-#Palautetaan käyttäjän valitsema vaikeustaso
-def difficulty(set_difficulty):
+def return_difficulty(mouseclick):
+    cursor = sqlconnection.connection.cursor()
 
-    if set_difficulty == "1":
-        vaikeustaso1 = "Helppo"
-        print('Valitsit helpon.')
-        print('Pelin voittaa pelaaja, jolla on lyhyin matka.\n')
-    elif set_difficulty == "2":
-        vaikeustaso1 = "Keskitaso"
-        print('Valitsit keskitason.')
-        print('Pelin voittaa pelaaja, jolla on lyhyin matka.\n')
-    else:
-        vaikeustaso1 = "Vaikea"
-        print('Valitsit vaikean.')
-        print('Pelin voittaa pelaaja, jolla on lyhyin matka.\n')
+    if mouseclick == 'easy':
 
-    return vaikeustaso1
-
-#Hae sql:stä vaikeustason mukaiset tiedot
-def setDifficultyFromSql(userinput):
-    kursori = sql_connection.dbconn.cursor()
-    valinta = difficulty(userinput)
-
-    #Hae sql:stä vaikeustason mukaiset tiedot
-    if valinta == 'Helppo':
         sql = "SELECT airport.name, airport.municipality, airport.latitude_deg, airport.longitude_deg FROM airport " \
               "INNER JOIN country ON airport.iso_country = country.iso_country " \
               "WHERE country.name = %s AND airport.type IN (%s, %s) " \
@@ -33,33 +13,26 @@ def setDifficultyFromSql(userinput):
         country_name_easy = "Finland"
         airport_types = ("medium_airport", "large_airport")
 
-        kursori.execute(sql, (country_name_easy, *airport_types))
-        tulos = kursori.fetchall()
+        cursor.execute(sql, (country_name_easy, *airport_types))
+        result = cursor.fetchall()
 
-    elif valinta == 'Keskitaso':
+    elif mouseclick == 'medium':
         sql1 = ('SELECT airport.name, country.name, airport.latitude_deg, airport.longitude_deg FROM airport INNER JOIN '
                 'country On airport.iso_country = country.iso_country'
                 ' WHERE country.continent = "EU" AND airport.type '
                 '= "large_airport" ORDER BY RAND() LIMIT 10;')
 
-        kursori.execute(sql1)
-        tulos = kursori.fetchall()
+        cursor.execute(sql1)
+        result = cursor.fetchall()
 
-    elif valinta == 'Vaikea':
-        sql2 = ('SELECT airport.name, country.name, airport.latitude_deg, airport.longitude_deg FROM airport INNER JOIN '
-                'country On airport.iso_country = country.iso_country'
-                ' WHERE airport.type '
-                '= "large_airport" ORDER BY RAND() LIMIT 10;')
-        kursori.execute(sql2)
-        tulos = kursori.fetchall()
+    elif mouseclick == 'hard':
+        sql2 = (
+            'SELECT airport.name, country.name, airport.latitude_deg, airport.longitude_deg FROM airport INNER JOIN '
+            'country On airport.iso_country = country.iso_country'
+            ' WHERE airport.type '
+            '= "large_airport" ORDER BY RAND() LIMIT 10;')
+        cursor.execute(sql2)
+        result = cursor.fetchall()
 
-    return tulos
+    return result
 
-#Käyttäjän valitsema vaikeustaso
-def select_difficulty():
-    while True:
-        vaikeustaso = str(input('Valitse vaikeustaso: '))
-        lentopeli.check_if_user_wants_to_exit_game(vaikeustaso)
-        if vaikeustaso in ["1", "2", "3"]:
-            return vaikeustaso
-        print("Virheellinen syöttö, valitse vaikeustaso väliltä 1-3")
