@@ -1,0 +1,12 @@
+GET http://localhost:5000/difficulty/easy
+Accept: application/json
+
+###
+GET http://localhost:5000/difficulty/medium
+Accept: application/json
+
+###
+GET http://localhost:5000/difficulty/hard
+Accept: application/json
+
+###
