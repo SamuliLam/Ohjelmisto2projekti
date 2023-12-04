@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Blueprint
+from flask import jsonify, Blueprint
 
 from Backend.difficulty import return_difficulty
 

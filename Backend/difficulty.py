@@ -1,8 +1,19 @@
-from Backend import sqlconnection
+import os
+import mysql.connector
+from dotenv import load_dotenv
 
+load_dotenv()
+# Establish a connection to the MariaDB server
+connection = mysql.connector.connect(
+    user=os.getenv('DB_USER'),
+    password=os.getenv('DB_PASSWORD'),
+    host=os.getenv('DB_HOST'),
+    port=os.getenv('DB_PORT'),
+    database=os.getenv('DB_DATABASE')
+)
 
 def return_difficulty(mouseclick):
-    cursor = sqlconnection.connection.cursor()
+    cursor = connection.cursor()
 
     if mouseclick == 'easy':
 
@@ -18,10 +29,11 @@ def return_difficulty(mouseclick):
         result = cursor.fetchall()
 
     elif mouseclick == 'medium':
-        sql1 = ('SELECT airport.name, country.name, airport.latitude_deg, airport.longitude_deg FROM airport INNER JOIN '
-                'country On airport.iso_country = country.iso_country'
-                ' WHERE country.continent = "EU" AND airport.type '
-                '= "large_airport" ORDER BY RAND() LIMIT 10;')
+        sql1 = (
+            'SELECT airport.name, country.name, airport.latitude_deg, airport.longitude_deg FROM airport INNER JOIN '
+            'country On airport.iso_country = country.iso_country'
+            ' WHERE country.continent = "EU" AND airport.type '
+            '= "large_airport" ORDER BY RAND() LIMIT 10;')
 
         cursor.execute(sql1)
         result = cursor.fetchall()
@@ -36,4 +48,3 @@ def return_difficulty(mouseclick):
         result = cursor.fetchall()
 
     return result
-
