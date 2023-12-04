@@ -1,9 +1,4 @@
 /*Javascript for difficulty page*/
-const DIFFICULTY = {
-    EASY: 'easy',
-    MEDIUM: 'medium',
-    HARD: 'hard'
-}
 
 async function sendAjaxRequest(difficulty){
     try {
@@ -21,5 +16,6 @@ const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
 
 sendAjaxRequest(difficulty).then((response) => {
+    console.log("blyat")
     console.log(response);
 })

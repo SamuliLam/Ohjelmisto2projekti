@@ -27,7 +27,11 @@ h1 {
     background-color: aqua;
 }
 
-button {
+button, .buttons {
+    color: black;
+    display: inline-block;
+    text-decoration: none;
+    padding: 3px 5px;
     font-size: 1.5em;
     margin-top: 1em;
     border-radius: 0.5em;
@@ -36,6 +40,6 @@ button {
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 
 }
-button:hover {
+button:hover, .buttons {
     background-color: #e6e6e6;
 }
