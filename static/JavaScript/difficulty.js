@@ -16,6 +16,5 @@ const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
 
 sendAjaxRequest(difficulty).then((response) => {
-    console.log("blyat")
     console.log(response);
 })
