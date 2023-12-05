@@ -1,4 +1,4 @@
-/*Javascript for difficulty page*/
+'use strict';
 
 async function sendAjaxRequest(difficulty){
     try {
@@ -10,7 +10,6 @@ async function sendAjaxRequest(difficulty){
         return Promise.reject(err)
     }
 }
-
 
 const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
