@@ -22,9 +22,6 @@ class Game:
     def setPlayerScore(self, score):
         self.playerScore = score
 
-    def setGameId(self, game_id):
-        self.game_id = game_id
-
     def setPlayers(self, players):
         self.players = players
 
@@ -32,6 +29,4 @@ class Game:
         self.locations = locations
 
     def __str__(self):
-        return self.game_id + " " + str(self.players) + " " + str(self.locations)
-
-
+        return self.players + " " + str(self.locations)
