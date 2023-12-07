@@ -27,7 +27,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(mymap);
 
-
-var marker = L.marker([51.5, -0.09]).addTo(mymap);
-
-marker.bindPopup("<b>Hello world!</b><br>This is a popup.").openPopup();
+// const coordinates = [
+//     [37.7749, -122.4194],
+//     [40.7128, -74.0060],
+//     [34.0522, -118.2437],
+// ];
+//
+// for (let i = 0; i < coordinates.length; i++) {
+//     const marker = L.marker(coordinates[i]).addTo(map);
+// }
