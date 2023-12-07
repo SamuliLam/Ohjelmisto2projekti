@@ -15,6 +15,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
 
 sendAjaxRequest(difficulty).then((response) => {
+    /*response tässä on json lista kaikista airporteista. Reponse muuttujaa voidaan käyttää markkereiden outputtaamiseen. */
     console.log(response);
     createMarkers(response);
 });
