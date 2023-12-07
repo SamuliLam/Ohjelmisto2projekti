@@ -1,4 +1,4 @@
-from flask import jsonify, Blueprint
+from flask import jsonify, Blueprint, request
 
 from Backend.difficulty import return_difficulty
 
@@ -9,6 +9,7 @@ def difficulty(vaikeustaso):
     list_of_airports = return_difficulty(vaikeustaso)
     return jsonify(list_of_airports)
 
+
 @endpoints.errorhandler(404)
 def page_not_found():
     response = {
@@ -16,4 +17,3 @@ def page_not_found():
         "text": "Page not found"
     }
     return jsonify(response), 404
-
