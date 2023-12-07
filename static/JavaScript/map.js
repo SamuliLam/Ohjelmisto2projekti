@@ -20,19 +20,29 @@ sendAjaxRequest(difficulty).then((response) => {
     createMarkers(response);
 });
 
-var mymap = L.map('map').setView([51.505, -0.09], 13);
+function createMarkers(airports){
+    for (let i = 0; i < airports.length; i++) {
+      const airport = airports[i];
+      const marker = L.marker([airport[2], airport[3]]).addTo(mymap);
+    }
+    return;
+}
 
+let mymap;
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-}).addTo(mymap);
-
-// const coordinates = [
-//     [37.7749, -122.4194],
-//     [40.7128, -74.0060],
-//     [34.0522, -118.2437],
-// ];
-//
-// for (let i = 0; i < coordinates.length; i++) {
-//     const marker = L.marker(coordinates[i]).addTo(map);
-// }
+if (difficulty === 'easy') {
+    mymap = L.map('map').setView([64.0, 26.0], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(mymap);
+} else if (difficulty === 'medium') {
+    mymap = L.map('map').setView([50.0, 15.0], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(mymap);
+} else if (difficulty === 'hard') {
+    mymap = L.map('map').setView([0.0, 0.0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(mymap);
+}
