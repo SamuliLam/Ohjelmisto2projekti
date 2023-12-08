@@ -44,6 +44,7 @@ var greyMarker = L.icon({
 });
 
 let current_marker = null;
+//Lista pelaajan valitsemista lentokentistä
 let clicked_markers = [];
 let marker_list = [];
 
@@ -83,10 +84,13 @@ function createMarkers(airports) {
                 clicked_markers.push(marker);
                 for (let j = 0; j < clicked_markers.length - 1; j++) {
                     clicked_markers[j].setIcon(greyMarker);
+                    console.log(clicked_markers[j])
                 }
             });
         }
+
     }
+
 }
 
 
