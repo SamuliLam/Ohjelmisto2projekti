@@ -45,6 +45,8 @@ var greyMarker = L.icon({
 
 let current_marker = null;
 //Lista pelaajan valitsemista lentokentistä
+
+//This list needs to be sent as json to backend. In python we can use json.loads() to convert it to a list and then use it to calculate the distance between the markers
 let clicked_markers = [];
 let marker_list = [];
 
@@ -80,7 +82,6 @@ function createMarkers(airports) {
             marker.on('click', function (e) {
                 current_marker = marker;
                 marker.setIcon(blueMarker);
-                //This list needs to be sent as json to backend. In python we can use json.loads() to convert it to a list and then use it to calculate the distance between the markers
                 clicked_markers.push(marker);
                 for (let j = 0; j < clicked_markers.length - 1; j++) {
                     clicked_markers[j].setIcon(greyMarker);
