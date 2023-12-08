@@ -94,6 +94,12 @@ function createMarkers(airports) {
 }
 
 
+// async function calculateDistance() {
+//     if (current_marker === null) {
+//         alert("Please select a destination.");
+//     } else {
+//         const response = await fetch('http://
+
 let mymap;
 
 if (difficulty === 'easy') {
