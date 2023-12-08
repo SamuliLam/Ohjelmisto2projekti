@@ -85,7 +85,6 @@ function createMarkers(airports) {
                 clicked_markers.push(marker);
                 for (let j = 0; j < clicked_markers.length - 1; j++) {
                     clicked_markers[j].setIcon(greyMarker);
-                    console.log(clicked_markers[j])
                 }
             });
         }
