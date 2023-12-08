@@ -19,37 +19,76 @@ sendAjaxRequest(difficulty).then((response) => {
     console.log(response);
     createMarkers(response);
 });
-/* last destination uses red marker */
-var redMarker = L.AwesomeMarkers.icon({
-    icon: 'plane',
-    markerColor: 'red'
-});
-var greenMarker = L.AwesomeMarkers.icon({
-    icon: 'plane',
-    markerColor: 'green'
+
+/* last destination uses red marker first destination uses green*/
+/* current destination uses blue marker */
+
+var greenMarker = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
 });
 
-let first_airport;
-let last_airport;
+var redMarker = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+});
+
+var blueMarker = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+});
+
+var greyMarker = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+});
+
+let current_marker = null;
+let clicked_markers = [];
+let marker_list = [];
 
 function createMarkers(airports) {
-    for (let i = 0; i < airports.length; i++) {
+    const startPoint = L.marker([airports[0][2], airports[0][3]], {icon: blueMarker}).addTo(mymap);
+    clicked_markers.push(startPoint);
+    const lastPoint = L.marker([airports[9][2], airports[9][3]], {icon: redMarker}).addTo(mymap);
 
-        if (i === 0) {
-            first_airport = airports[i];
-            const first_marker = L.marker([first_airport[2], first_airport[3]], {icon: redMarker}).addTo(mymap);
-            console.log("first airport: " + first_airport);
-        }
+    startPoint.bindPopup(`<b>Start point</b><br>${airports[0][1]}`);
+
+    for (let i = 1; i < airports.length; i++) {
+        const marker = L.marker([airports[i][2], airports[i][3]], {icon: greenMarker}).addTo(mymap);
+        marker_list.push(marker);
+
         if (i === airports.length - 1) {
-            last_airport = airports[i];
-            const last_marker = L.marker([last_airport[2], last_airport[3]], {icon: redMarker}).addTo(mymap);
-            console.log("last airport: " + last_airport);
+            marker.bindPopup(`<b>Destination</b><br>${airports[i][1]}`);
+            marker.setIcon(redMarker);
+            marker.on('click', function (e) {
+                // Check if all other markers have been clicked
+                if (clicked_markers.length === airports.length - 1) {
+                    current_marker = marker;
+                    marker.setIcon(blueMarker);
+                    // we use this list to calculate the distance between the markers
+                    clicked_markers.push(marker);
+                    for (let j = 0; j < clicked_markers.length - 1; j++) {
+                        clicked_markers[j].setIcon(greyMarker);
+                    }
+                } else {
+                    alert("Please click on all other destinations before selecting the final destination.");
+                }
+            });
+        } else {
+            marker.on('click', function (e) {
+                current_marker = marker;
+                marker.setIcon(blueMarker);
+                // we use this list to calculate the distance between the markers
+                clicked_markers.push(marker);
+                for (let j = 0; j < clicked_markers.length - 1; j++) {
+                    clicked_markers[j].setIcon(greyMarker);
+                }
+            });
         }
-
-        const airport = airports[i];
-        const marker = L.marker([airport[2], airport[3]]).addTo(mymap);
     }
 }
+
 
 let mymap;
 
