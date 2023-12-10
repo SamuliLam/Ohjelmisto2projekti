@@ -22,14 +22,10 @@ def difficulty(vaikeustaso):
 def handle_game_data():
     if request.method == 'POST':
         try:
-            data = request.get_json(force=True)
-            print("Received data:", data)
+            data = request.get_json()
             return jsonify(data)
         except Exception as e:
-            print(f"Error processing data: {str(e)}")
-            return jsonify({"status": "error"})
-    else:
-        return jsonify({"message": "This is not a POST request"})
+            return jsonify({'error': str(e)}), 500
 
 @endpoints.errorhandler(404)
 def page_not_found():

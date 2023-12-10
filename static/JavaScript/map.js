@@ -27,21 +27,25 @@ sendAjaxRequest(difficulty).then((response) => {
 var greenMarker = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconAnchor: [12, 40]
 });
 
 var redMarker = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconAnchor: [12, 40]
 });
 
 var blueMarker = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconAnchor: [12, 40]
 });
 
 var greyMarker = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconAnchor: [12, 40]
 });
 
 let current_marker = null;
@@ -50,6 +54,7 @@ let current_marker = null;
 //This list needs to be sent as json to backend. In python we can use json.loads() to convert it to a list and then use it to calculate the distance between the markers
 let clicked_markers = [];
 let marker_list = [];
+
 
 function createMarkers(airports) {
     const startPoint = L.marker([airports[0][2], airports[0][3]], {icon: blueMarker}).addTo(mymap);
@@ -87,6 +92,12 @@ function createMarkers(airports) {
                 for (let j = 0; j < clicked_markers.length - 1; j++) {
                     clicked_markers[j].setIcon(greyMarker);
                 }
+                if (clicked_markers.length === marker_list.length) {
+                    const marker_cordiantes = clicked_markers.map(marker => marker.getLatLng());
+                    sendAjaxRequest2(marker_cordiantes).then((response) => {
+                        console.log("Received response:", response);
+                    });
+                }
             });
         }
 
@@ -112,11 +123,6 @@ async function sendAjaxRequest2(clicked_markers) {
         return Promise.reject(err);
     }
 }
-
-// Example usage
-sendAjaxRequest2(clicked_markers).then((response) => {
-    console.log("Received response:", response);
-});
 
 
 let mymap;

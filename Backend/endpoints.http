@@ -1,4 +1,44 @@
 
 ###
 POST http://localhost:5000/game/airport
-Accept: application/jsons
+Accept: application/json
+Content-Type: application/json
+
+[
+  {
+    "lat": 62.171101,
+    "lng": 27.868601
+  },
+  {
+    "lat": 67.700996398926,
+    "lng": 24.846799850464
+  },
+  {
+    "lat": 63.050701,
+    "lng": 21.762199
+  },
+  {
+    "lat": 60.514099,
+    "lng": 22.2628
+  },
+  {
+    "lat": 60.3172,
+    "lng": 24.963301
+  },
+  {
+    "lat": 60.479167,
+    "lng": 26.593889
+  },
+  {
+    "lat": 63.007099,
+    "lng": 27.7978
+  },
+  {
+    "lat": 61.6866,
+    "lng": 27.201799
+  },
+  {
+    "lat": 62.1661,
+    "lng": 30.073601
+  }
+]
