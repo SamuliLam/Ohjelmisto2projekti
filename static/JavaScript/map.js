@@ -22,8 +22,8 @@ async function sendAjaxRequest2(clicked_markers) {
             },
             body: JSON.stringify(clicked_markers)
         });
-        const jsonData = await response.json();
-        const totalDistanceTraveled = Promise.resolve(jsonData);
+        const totalDistanceTraveled = await response.json();
+        Promise.resolve(totalDistanceTraveled);
     } catch (err) {
         console.log(err);
         return Promise.reject(err);
