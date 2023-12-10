@@ -1,6 +1,6 @@
 from flask import jsonify, Blueprint, request
 from Backend.difficulty import return_difficulty
-from Backend.difficulty import connection
+from geopy import distance
 
 endpoints = Blueprint('endpoints', __name__)
 
@@ -23,9 +23,17 @@ def handle_game_data():
     if request.method == 'POST':
         try:
             data = request.get_json()
-            return jsonify(data)
+            total_distance = 0
+            for i in range(1, len(data)):
+                last_coordinate = (data[i - 1]["lat"], data[i - 1]["lng"])
+                current_coordinate = (data[i]["lat"], data[i]["lng"])
+                dist = distance.distance(last_coordinate, current_coordinate).km
+                total_distance += dist
+                rounded_distance = round(total_distance, 2)
+            return jsonify({'Response': rounded_distance})
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+
 
 @endpoints.errorhandler(404)
 def page_not_found():
