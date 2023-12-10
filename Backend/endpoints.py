@@ -17,6 +17,20 @@ def difficulty(vaikeustaso):
 
     return jsonify(list_of_airports)
 
+# This is an endpoint for the game page, where we receive the json data from the frontend and send the calculated distance back
+@endpoints.route('/game/airport', methods=['POST'])
+def handle_game_data():
+    if request.method == 'POST':
+        try:
+            data = request.get_json(force=True)
+            print("Received data:", data)
+            return jsonify(data)
+        except Exception as e:
+            print(f"Error processing data: {str(e)}")
+            return jsonify({"status": "error"})
+    else:
+        return jsonify({"message": "This is not a POST request"})
+
 @endpoints.errorhandler(404)
 def page_not_found():
     response = {

@@ -20,6 +20,7 @@ sendAjaxRequest(difficulty).then((response) => {
     createMarkers(response);
 });
 
+
 /* last destination uses red marker first destination uses green*/
 /* current destination uses blue marker */
 
@@ -93,12 +94,30 @@ function createMarkers(airports) {
 
 }
 
+// Here we send the list of markers to the backend
+async function sendAjaxRequest2(clicked_markers) {
+    try {
+        console.log("Sending data:", clicked_markers);  // Check if clicked_markers is not empty or undefined
+        const response = await fetch('http://127.0.0.1:5000/game/airport', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(clicked_markers)
+        });
+        const jsonData = await response.json();
+        return Promise.resolve(jsonData);
+    } catch (err) {
+        console.log(err);
+        return Promise.reject(err);
+    }
+}
 
-// async function calculateDistance() {
-//     if (current_marker === null) {
-//         alert("Please select a destination.");
-//     } else {
-//         const response = await fetch('http://
+// Example usage
+sendAjaxRequest2(clicked_markers).then((response) => {
+    console.log("Received response:", response);
+});
+
 
 let mymap;
 
