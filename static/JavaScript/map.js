@@ -39,7 +39,7 @@ function createMarkers(airports) {
 
     for (let i = 1; i < airports.length; i++) {
         const marker = L.marker([airports[i][2], airports[i][3]], {icon: greenMarker, airportName: airports[i][0]}).addTo(mymap);
-        const airport_name = marker.options.airportName;
+        let airport_name = marker.options.airportName;
         //testaus alla airportin nimen saamiseksi
         console.log(airport_name);
         //testaus loppuu
@@ -66,6 +66,8 @@ function createMarkers(airports) {
             if (clicked_markers.includes(marker) === false) {
                 marker.on('click', function (e) {
                     current_marker = marker;
+                    airport_name = current_marker.options.airportName;
+
                     console.log("Clicked marker:", marker);
                     marker.setIcon(blueMarker);
                     clicked_markers.push(marker);
