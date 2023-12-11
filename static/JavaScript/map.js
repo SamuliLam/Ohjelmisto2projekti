@@ -11,24 +11,45 @@ async function sendAjaxRequest(difficulty) {
     }
 }
 
-// A function to send the list of markers to the backend
-async function sendAjaxRequest2(clicked_markers) {
-    try {
-        console.log("Sending data:", clicked_markers);  // Check if clicked_markers is not empty or undefined
-        const response = await fetch('http://127.0.0.1:5000/game/airport', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(clicked_markers)
-        });
-        const totalDistanceTraveled = await response.json();
-        Promise.resolve(totalDistanceTraveled);
-    } catch (err) {
-        console.log(err);
-        return Promise.reject(err);
-    }
-}
+const urlParams = new URLSearchParams(window.location.search);
+const difficulty = urlParams.get('difficulty');
+
+sendAjaxRequest(difficulty).then((response) => {
+    /*response tässä on json lista kaikista airporteista. Reponsea voidaan käyttää markkereiden outputtaamiseen. */
+    console.log(response);
+    createMarkers(response);
+});
+
+
+/* last destination uses red marker first destination uses green*/
+/* current destination uses blue marker */
+
+var greenMarker = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+});
+
+var redMarker = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+});
+
+var blueMarker = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+});
+
+var greyMarker = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+});
+
+let current_marker = null;
+//Lista pelaajan valitsemista lentokentistä
+
+//This list needs to be sent as json to backend. In python we can use json.loads() to convert it to a list and then use it to calculate the distance between the markers
+let clicked_markers = [];
+let marker_list = [];
 
 function createMarkers(airports) {
     const startPoint = L.marker([airports[0][2], airports[0][3]], {icon: blueMarker}).addTo(mymap);
@@ -59,77 +80,43 @@ function createMarkers(airports) {
                 }
             });
         } else {
-            if (clicked_markers.includes(marker) === false) {
-                marker.on('click', function (e) {
-                    current_marker = marker;
-                    marker.setIcon(blueMarker);
-                    clicked_markers.push(marker);
-                    for (let j = 0; j < clicked_markers.length - 1; j++) {
-                        clicked_markers[j].setIcon(greyMarker);
-                    }
-                    if (clicked_markers.length === marker_list.length) {
-                        clicked_markers.push(lastPoint);
-                        const marker_cordiantes = clicked_markers.map(marker => marker.getLatLng());
-                        sendAjaxRequest2(marker_cordiantes).then((response) => {
-                            console.log("Received response:", response);
-                        });
-
-
-                    }
-                });
-            } else {
-                alert("You have already selected this destination.");
+            marker.on('click', function (e) {
+                current_marker = marker;
+                marker.setIcon(blueMarker);
+                clicked_markers.push(marker);
+                for (let j = 0; j < clicked_markers.length - 1; j++) {
+                    clicked_markers[j].setIcon(greyMarker);
                 }
-
-            }
-
+            });
         }
+
+    }
 
 }
 
-const urlParams = new URLSearchParams(window.location.search);
-const difficulty = urlParams.get('difficulty');
+// Here we send the list of markers to the backend
+async function sendAjaxRequest2(clicked_markers) {
+    try {
+        console.log("Sending data:", clicked_markers);  // Check if clicked_markers is not empty or undefined
+        const response = await fetch('http://127.0.0.1:5000/game/airport', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(clicked_markers)
+        });
+        const jsonData = await response.json();
+        return Promise.resolve(jsonData);
+    } catch (err) {
+        console.log(err);
+        return Promise.reject(err);
+    }
+}
 
-sendAjaxRequest(difficulty).then((response) => {
-    /*response tässä on json lista kaikista airporteista. Reponsea voidaan käyttää markkereiden outputtaamiseen. */
-    console.log(response);
-    createMarkers(response);
+// Example usage
+sendAjaxRequest2(clicked_markers).then((response) => {
+    console.log("Received response:", response);
 });
-
-
-/* last destination uses red marker first destination uses green*/
-/* current destination uses blue marker */
-
-var greenMarker = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconAnchor: [12, 40]
-});
-
-var redMarker = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconAnchor: [12, 40]
-});
-
-var blueMarker = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconAnchor: [12, 40]
-});
-
-var greyMarker = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconAnchor: [12, 40]
-});
-
-let current_marker = null;
-
-
-//This list needs to be sent as json to backend. In python we can use json.loads() to convert it to a list and then use it to calculate the distance between the markers
-let clicked_markers = [];
-let marker_list = [];
 
 
 let mymap;
