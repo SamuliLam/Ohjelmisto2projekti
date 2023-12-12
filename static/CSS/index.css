@@ -3,9 +3,6 @@
     src: url("../static/fonts/Roboto-Regular.ttf") format("truetype");
 }
 
-
-
-
 ul, .newGame {
     width: 10em;
 }
@@ -16,7 +13,7 @@ div .description {
 }
 
 .description {
-    text-align: center;
+    text-align: left;
     gap: 20em;
     border: 1px solid black;
     
@@ -27,6 +24,7 @@ div .description {
 .button_container {
     display: flex;
     justify-content: center;
+    text-align: center;
     gap: 20em;
     margin-top: 25px;
 }
