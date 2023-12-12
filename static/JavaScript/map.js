@@ -147,7 +147,7 @@ function createMarkers(airports) {
                 sendAjaxRequest2(marker_cordiantes).then((response) => {
                     console.log("Received response:", response);
                     const distance = response.Response;
-                    document.getElementById('h2totaldistance').innerText = 'You traveled ' + distance + ' km';
+                    document.getElementById('h2content').innerText = 'You traveled ' + distance + ' km';
                     document.getElementById('rerun').innerText = 'Try again?';
 
                 });
