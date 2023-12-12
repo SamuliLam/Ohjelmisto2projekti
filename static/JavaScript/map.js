@@ -1,5 +1,5 @@
 'use strict';
-
+const gameLog = document.querySelector('#gameLog')
 async function sendAjaxRequest(difficulty) {
     try {
         const response = await fetch(`http://127.0.0.1:5000/difficulty/${difficulty}`);

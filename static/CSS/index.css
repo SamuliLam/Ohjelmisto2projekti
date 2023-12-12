@@ -1,66 +1,49 @@
 @font-face {
     font-family: 'Roboto', sans-serif;
-    src: url("/static/fonts/Roboto-Regular.ttf") format("truetype");
+    src: url("../static/fonts/Roboto-Regular.ttf") format("truetype");
 }
 
-html, body {
-    min-height: 100%;
-    width: 100%;
-    margin: 0;
-    background-image: url("");
-    background-color: #b9d7ff;
-    background-size: cover;
-}
 
-.container {
-    min-height: 100%;
-    width: 100%;
-    margin: 0 auto;
-    max-width: 1000px;
-    padding: 0 2em 2em;
-}
+
 
 ul, .newGame {
     width: 10em;
 }
 
-h1 {
-    color: floralwhite;
-    padding: 0.5em;
-    text-align: center;
-    font-size: 3em;
-    background-color:#B9D9EB;
-    background-image: url("");
-    background-size: cover;
-    border-radius: 0.5em;
-    border: 1px solid black;
-    box-shadow: 0 0 25px rgb(255, 255, 255);
 
+div .description {
+    background: rgba(180, 180, 180, 0.5)
+}
+
+.description {
+    text-align: center;
+    gap: 20em;
+    border: 1px solid black;
+    
+    padding: 2em;
+    border-radius: 0.5em;
 }
 
 .button_container {
     display: flex;
     justify-content: center;
     gap: 20em;
-    border: 1px solid black;
-    background-color: aqua;
-    padding: 2em;
-    border-radius: 0.5em;
+    margin-top: 25px;
 }
 
 button, .buttons {
     color: black;
     display: inline-block;
     text-decoration: none;
-    padding: 3px 5px;
-    font-size: 1.5em;
-    margin-top: 1em;
+    padding: 3px 6px;
+    font-size: 2em;
     border-radius: 0.5em;
     border: 1px solid black;
     background-color: white;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 
 }
+
 button:hover, .buttons {
     background-color: #e6e6e6;
 }
