@@ -1,5 +1,6 @@
 'use strict';
 
+document.getElementById('rerun').style.visibility='hidden';
 //Lista pelaajan valitsemista lentokentistä
 //This list needs to be sent as json to backend. In python we can use json.loads() to convert it to a list and then use it to calculate the distance between the markers
 
@@ -149,6 +150,8 @@ function createMarkers(airports) {
                     const distance = response.Response;
                     document.getElementById('h2content').innerText = 'You traveled ' + distance + ' km';
                     document.getElementById('rerun').innerText = 'Try again?';
+                    document.getElementById('rerun').style.visibility='visible';
+
 
                 });
             }
