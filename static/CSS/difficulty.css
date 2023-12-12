@@ -1,6 +1,10 @@
 @font-face {
-    font-family: 'Roboto', sans-serif;
-    src: url("/static/fonts/Roboto-Regular.ttf") format("truetype");
+    font-family: 'Open Sans', sans-serif;
+    src: url("../fonts/OpenSans-Regular.ttf") format("truetype");
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
 }
 
 /*.easy {
