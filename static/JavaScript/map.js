@@ -1,6 +1,7 @@
 'use strict';
 
-document.getElementById('rerun').style.visibility='hidden';
+
+document.getElementById('rerun').style.visibility = 'hidden';
 //Lista pelaajan valitsemista lentokentistä
 //This list needs to be sent as json to backend. In python we can use json.loads() to convert it to a list and then use it to calculate the distance between the markers
 
@@ -89,6 +90,20 @@ async function sendAjaxRequest2(clicked_markers) {
     }
 }
 
+function getWeather(latitudes, longitudes) {
+    console.log("function getWeather");
+    const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitudes}&lon=${longitudes}&appid=fac105958c9a086efd423bc985ee2892&units=metric`;
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            let weather = document.getElementById("weather");
+            weather.innerText = "Weather is " + data.weather[0].description + " and temperature is " + data.main.temp + "°C";
+        });
+}
+
 function createMarkers(airports) {
     let info = document.getElementById("h2content");
     const startPoint = L.marker([airports[0][2], airports[0][3]], {icon: blueMarker}).addTo(mymap);
@@ -134,8 +149,11 @@ function createMarkers(airports) {
 
             airport_name = marker.options.airportName;
 
+            let marker_latitude = marker._latlng.lat;
+            let marker_longitude = marker._latlng.lng;
             console.log("Clicked marker:", marker);
             info.innerText = "You are currently at : " + marker.options['airportName'];
+            getWeather(marker_latitude, marker_longitude);
             marker.setIcon(blueMarker);
             clicked_markers.push(marker);
             for (let j = 0; j < clicked_markers.length - 1; j++) {
@@ -144,13 +162,15 @@ function createMarkers(airports) {
             console.log(clicked_markers.length)
             console.log(marker_list.length)
             if (clicked_markers.length === marker_list.length + 1) {
+
                 const marker_cordiantes = clicked_markers.map(marker => marker.getLatLng());
+
                 sendAjaxRequest2(marker_cordiantes).then((response) => {
                     console.log("Received response:", response);
                     const distance = response.Response;
                     document.getElementById('h2content').innerText = 'You traveled ' + distance + ' km';
                     document.getElementById('rerun').innerText = 'Try again?';
-                    document.getElementById('rerun').style.visibility='visible';
+                    document.getElementById('rerun').style.visibility = 'visible';
 
 
                 });
