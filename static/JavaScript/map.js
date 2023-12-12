@@ -142,7 +142,7 @@ function createMarkers(airports) {
 
                 // Check if the marker is the last one (destination)
                 if (marker._latlng.lat === lastPoint._latlng.lat && marker._latlng.lng === lastPoint._latlng.lng) {
-                    alert('You cannot click the last marker first!')
+                    document.getElementById('h2content').innerText = 'You have to visit all the airports before you can go to the destination!';
                     return;
                 }
             }
