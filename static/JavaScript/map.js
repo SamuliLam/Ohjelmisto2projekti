@@ -23,7 +23,7 @@ async function sendAjaxRequest2(clicked_markers) {
             body: JSON.stringify(clicked_markers)
         });
         const jsonData = await response.json();
-        const totalDistanceTraveled = Promise.resolve(jsonData);
+        var totalDistanceTraveled = Promise.resolve(jsonData);
     } catch (err) {
         console.log(err);
         return Promise.reject(err);
@@ -38,7 +38,10 @@ function createMarkers(airports) {
     startPoint.bindPopup(`<b>Start point</b><br>${airports[0][1]}`);
 
     for (let i = 1; i < airports.length; i++) {
-        const marker = L.marker([airports[i][2], airports[i][3]], {icon: greenMarker, airportName: airports[i][0]}).addTo(mymap);
+        const marker = L.marker([airports[i][2], airports[i][3]], {
+            icon: greenMarker,
+            airportName: airports[i][0]
+        }).addTo(mymap);
         let airport_name = marker.options.airportName;
         //testaus alla airportin nimen saamiseksi
         console.log(airport_name);
@@ -58,6 +61,14 @@ function createMarkers(airports) {
                     for (let j = 0; j < clicked_markers.length - 1; j++) {
                         clicked_markers[j].setIcon(greyMarker);
                     }
+                    sendAjaxRequest2(marker_cordiantes).then((response) => {
+                        console.log("Received response:", response);
+                        var info = document.getElementById("InfoText")
+                        info.innerText = response.totalDistanceTraveled; // Access the property after the promise resolves
+                    }).catch((error) => {
+                        console.error("Error:", error);
+                    });
+                    info.innerText = marker.options['airportName'];
                 } else {
                     alert("Please click on all other destinations before selecting the final destination.");
                 }
@@ -69,6 +80,8 @@ function createMarkers(airports) {
                     airport_name = current_marker.options.airportName;
 
                     console.log("Clicked marker:", marker);
+                    var info = document.getElementById("InfoText")
+                    info.innerText = marker.options['airportName'];
                     marker.setIcon(blueMarker);
                     clicked_markers.push(marker);
                     for (let j = 0; j < clicked_markers.length - 1; j++) {
