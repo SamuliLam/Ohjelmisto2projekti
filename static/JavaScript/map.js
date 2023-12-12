@@ -74,8 +74,6 @@ function createMarkers(airports) {
                             const distance = response.Response;
                             document.getElementById('h2totaldistance').innerText = 'Total distance ' + distance + ' km';
                         });
-
-
                     }
                 });
             } else {
