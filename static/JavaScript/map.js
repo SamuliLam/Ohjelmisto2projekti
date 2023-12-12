@@ -90,8 +90,9 @@ async function sendAjaxRequest2(clicked_markers) {
 }
 
 function createMarkers(airports) {
-
+    let info = document.getElementById("h2content");
     const startPoint = L.marker([airports[0][2], airports[0][3]], {icon: blueMarker}).addTo(mymap);
+    info.innerText = "Starting airport: " + airports[0][0];
     clicked_markers.push(startPoint);
     const lastPoint = L.marker([airports[airports.length - 1][2], airports[airports.length - 1][3]], {icon: redMarker}).addTo(mymap);
     startPoint.bindPopup(`<b>Start point</b><br>${airports[0][1]}`);
@@ -134,8 +135,7 @@ function createMarkers(airports) {
             airport_name = marker.options.airportName;
 
             console.log("Clicked marker:", marker);
-            var info = document.getElementById("h2content")
-            info.innerText = "You are currently at: " + marker.options['airportName'];
+            info.innerText = "You are currently at : " + marker.options['airportName'];
             marker.setIcon(blueMarker);
             clicked_markers.push(marker);
             for (let j = 0; j < clicked_markers.length - 1; j++) {
