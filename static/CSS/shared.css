@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+html, body {
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    background-size: cover;
+}
+
+body {
+    background-image: url("../pictures/cloudsbg2.jpg");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-attachment: fixed;
+}
+
+
+.container {
+    min-height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 0 2em 2em;
+}
+
+h1 {
+    color: floralwhite;
+    padding: 0.5em;
+    text-align: center;
+    font-size: 3em;
+    background-color:#B9D9EB;
+    background-image: url("");
+    background-size: cover;
+    border-radius: 0.5em;
+    border: 1px solid black;
+    box-shadow: 0 0 25px rgb(255, 255, 255);
+    font-family: "Press Start 2P", sans-serif;
+    text-shadow: 3px 3px black;
+
+}

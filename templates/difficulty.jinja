@@ -2,35 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Select difficulty</title>
     <link href="{{url_for('static', filename='CSS/difficulty.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url_for('static', filename='CSS/shared.css')}}" rel="stylesheet" type="text/css">
+    <!--<link rel="stylesheet" href="../static/CSS/shared.css">
+    <link rel="stylesheet" href="../static/CSS/difficulty.css">-->
 </head>
 <body>
 <div class="container">
     <h1>OptiFly 1.6</h1>
     <div class="button_container">
-        <form>
-            <div>
-            <input name="player_name" type="text" placeholder="Enter your name">
-            </div>
-            <div>
-            <input type="submit" value="Submit">
-            </div>
-        </form>
         <div class="easy">
             <a href="/game?difficulty=easy">Easy</a>
             <p>Contains airports from only Finland</p>
-            <img src="/static/pictures/Finland.jpg" alt="Finland map" width="624">
+            <!--<img src="../static/pictures/Finland.jpg" alt="Finland map" width="624">-->
         </div>
         <div class="medium">
             <a href="/game?difficulty=medium">Medium</a>
             <p>Contains airports from Europe</p>
-            <img src="/static/pictures/Europe.jpg" alt="Europe map" width="624">
+            <!--<img src="../static/pictures/Europe.jpg" alt="Europe map" width="624">-->
         </div>
         <div class="hard">
             <a href="/game?difficulty=hard">Hard</a>
             <p>Contains airports from across all continents</p>
-            <img src="/static/pictures/World.jpg" alt="World map" width="624">
+            <!--<img src="../static/pictures/World.jpg" alt="World map" width="624">-->
         </div>
     </div>
 </div>
