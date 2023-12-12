@@ -68,7 +68,7 @@ function createMarkers(airports) {
                     }).catch((error) => {
                         console.error("Error:", error);
                     });
-                    info.innerText = marker.options['airportName'];
+                    info.innerText = 'Olet tällä hetkellä lentokentällä: ' + marker.options['airportName'];
                 } else {
                     alert("Please click on all other destinations before selecting the final destination.");
                 }
@@ -81,7 +81,7 @@ function createMarkers(airports) {
 
                     console.log("Clicked marker:", marker);
                     var info = document.getElementById("InfoText")
-                    info.innerText = marker.options['airportName'];
+                    info.innerText = 'Olet tällä hetkellä lentokentällä: ' +  marker.options['airportName'];
                     marker.setIcon(blueMarker);
                     clicked_markers.push(marker);
                     for (let j = 0; j < clicked_markers.length - 1; j++) {
