@@ -6,36 +6,14 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
-    <style>
-        #map {
-            width: 45%;
-            height: 55vh;
-            margin-top: 0;
-            margin: auto;
-        }
-
-        #InfoText {
-            width: 45%;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-            margin: 50px auto 0;
-            text-align: center;
-        }
-
-        #InfoText div {
-            display: inline-block;
-        }
-    </style>
-
+    <link href="{{ url_for('static', filename='CSS/game.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='CSS/shared.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div id="map"></div>
-
-<div id="InfoText">
-    <h2>game text blablabla 1</h2>
-    <h2>game text blablabla 2</h2>
-    <h2>game text blablabla 3</h2>
-
+<div id="button_container">
+    <h2 id="h2content">You are currently at: </h2>
+    <h2 id="h2totaldistance">Total distance</h2>
 </div>
 </body>
 </html>

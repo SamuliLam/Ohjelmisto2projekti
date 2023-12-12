@@ -1,6 +1,5 @@
 from flask import jsonify, Blueprint, request
 from Backend.difficulty import return_difficulty
-from Backend.difficulty import connection
 from geopy import distance
 
 endpoints = Blueprint('endpoints', __name__)
@@ -13,9 +12,14 @@ endpoints = Blueprint('endpoints', __name__)
 # The difficulty level is used to determine which airports are returned
 @endpoints.route('/difficulty/<vaikeustaso>')
 def difficulty(vaikeustaso):
-    list_of_airports = return_difficulty(vaikeustaso)
-    return jsonify(list_of_airports)
-# This is an endpoint for the game page, where we receive the json data from the frontend and send the calculated distance back
+    try:
+        list_of_airports = return_difficulty(vaikeustaso)
+        return jsonify(list_of_airports)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# This is an endpoint for the game page, where we receive the json data from the frontend and send the
+# calculated distance back
 @endpoints.route('/game/airport', methods=['POST'])
 def handle_game_data():
     if request.method == 'POST':

@@ -1,5 +1,5 @@
 'use strict';
-const gameLog = document.querySelector('#gameLog')
+
 async function sendAjaxRequest(difficulty) {
     try {
         const response = await fetch(`http://127.0.0.1:5000/difficulty/${difficulty}`);
@@ -24,6 +24,7 @@ async function sendAjaxRequest2(clicked_markers) {
         });
         const jsonData = await response.json();
         var totalDistanceTraveled = Promise.resolve(jsonData);
+        return totalDistanceTraveled;
     } catch (err) {
         console.log(err);
         return Promise.reject(err);
@@ -51,28 +52,6 @@ function createMarkers(airports) {
         if (i === airports.length - 1) {
             marker.bindPopup(`<b>Destination</b><br>${airports[i][1]}`);
             marker.setIcon(redMarker);
-            marker.on('click', function (e) {
-                // Check if all other markers have been clicked
-                if (clicked_markers.length === airports.length - 1) {
-                    current_marker = marker;
-                    marker.setIcon(blueMarker);
-                    // we use this list to calculate the distance between the markers
-                    clicked_markers.push(marker);
-                    for (let j = 0; j < clicked_markers.length - 1; j++) {
-                        clicked_markers[j].setIcon(greyMarker);
-                    }
-                    sendAjaxRequest2(marker_cordiantes).then((response) => {
-                        console.log("Received response:", response);
-                        var info = document.getElementById("InfoText")
-                        info.innerText = response.totalDistanceTraveled; // Access the property after the promise resolves
-                    }).catch((error) => {
-                        console.error("Error:", error);
-                    });
-                    info.innerText = 'Olet tällä hetkellä lentokentällä: ' + marker.options['airportName'];
-                } else {
-                    alert("Please click on all other destinations before selecting the final destination.");
-                }
-            });
         } else {
             if (clicked_markers.includes(marker) === false) {
                 marker.on('click', function (e) {
@@ -80,8 +59,8 @@ function createMarkers(airports) {
                     airport_name = current_marker.options.airportName;
 
                     console.log("Clicked marker:", marker);
-                    var info = document.getElementById("InfoText")
-                    info.innerText = 'Olet tällä hetkellä lentokentällä: ' +  marker.options['airportName'];
+                    var info = document.getElementById("h2content")
+                    info.innerText = "You are currently at: " + marker.options['airportName'];
                     marker.setIcon(blueMarker);
                     clicked_markers.push(marker);
                     for (let j = 0; j < clicked_markers.length - 1; j++) {

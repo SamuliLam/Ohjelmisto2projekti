@@ -8,8 +8,8 @@ app.register_blueprint(endpoints.endpoints)
 @app.route('/')
 def index():
     return render_template('index.jinja')
-
 @app.route('/difficulty')
+
 def difficulty():
     return render_template('difficulty.jinja')
 
