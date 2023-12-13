@@ -12,7 +12,6 @@ const difficulty = urlParams.get('difficulty');
 
 sendAjaxRequest(difficulty).then((response) => {
     /*response tässä on json lista kaikista airporteista. Reponsea voidaan käyttää markkereiden outputtaamiseen. */
-    console.log(response);
     createMarkers(response);
 });
 
@@ -91,8 +90,6 @@ async function sendAjaxRequest2(clicked_markers) {
 }
 
 function getWeather(latitudes, longitudes) {
-
-    console.log("function getWeather");
     fetchApiKey().then((api_key) => {
         const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitudes}&lon=${longitudes}&appid=${api_key}&units=metric`;
         fetch(url)
@@ -140,9 +137,7 @@ function createMarkers(airports) {
             airportName: airports[i][0]
         }).addTo(mymap);
         let airport_name = marker.options.airportName;
-        //testaus alla airportin nimen saamiseksi
-        console.log(airport_name);
-        //testaus loppuu
+
         marker_list.push(marker);
 
         if (i === airports.length - 1) {
@@ -155,9 +150,6 @@ function createMarkers(airports) {
             if (clicked_markers.includes(marker)) {
                 return;
             }
-
-            console.log(marker, 'marker')
-            console.log(lastPoint, 'lastpoint')
 
             // While the player has not clicked all the markers
             if (clicked_markers.length < marker_list.length) {
@@ -173,7 +165,6 @@ function createMarkers(airports) {
 
             let marker_latitude = marker._latlng.lat;
             let marker_longitude = marker._latlng.lng;
-            console.log("Clicked marker:", marker);
             info.innerText = "You are currently at : " + marker.options['airportName'];
             getWeather(marker_latitude, marker_longitude);
             marker.setIcon(blueMarker);
@@ -181,8 +172,7 @@ function createMarkers(airports) {
             for (let j = 0; j < clicked_markers.length - 1; j++) {
                 clicked_markers[j].setIcon(greyMarker);
             }
-            console.log(clicked_markers.length)
-            console.log(marker_list.length)
+
             if (clicked_markers.length === marker_list.length + 1) {
 
                 const marker_cordiantes = clicked_markers.map(marker => marker.getLatLng());
@@ -193,8 +183,6 @@ function createMarkers(airports) {
                     document.getElementById('h2content').innerText = 'You traveled ' + distance + ' km';
                     document.getElementById('rerun').innerText = 'Try again?';
                     document.getElementById('rerun').style.visibility = 'visible';
-
-
                 });
             }
         });

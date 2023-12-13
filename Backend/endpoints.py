@@ -8,6 +8,7 @@ load_dotenv()
 
 endpoints = Blueprint('endpoints', __name__)
 
+
 # This is the endpoint for the difficulty page
 # The difficulty page sends a GET request to this endpoint
 # The endpoint returns a list of airports based on the difficulty level
@@ -21,6 +22,7 @@ def difficulty(vaikeustaso):
         return jsonify(list_of_airports)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 
 # This is an endpoint for the game page, where we receive the json data from the frontend and send the
 # calculated distance back
@@ -39,6 +41,7 @@ def handle_game_data():
             return jsonify({'Response': rounded_distance})
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+
 
 @endpoints.route('/api_key', methods=['GET'])
 def get_api_key():

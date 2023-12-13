@@ -12,6 +12,7 @@ connection = mysql.connector.connect(
     database=os.getenv('DB_DATABASE')
 )
 
+
 def return_difficulty(mouseclick):
     cursor = connection.cursor()
 

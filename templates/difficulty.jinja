@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Select difficulty</title>
-    <link href="{{url_for('static', filename='CSS/difficulty.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{url_for('static', filename='CSS/shared.css')}}" rel="stylesheet" type="text/css">
-    <!--<link rel="stylesheet" href="../static/CSS/shared.css">
-    <link rel="stylesheet" href="../static/CSS/difficulty.css">-->
+    <link href="{{ url_for('static', filename='CSS/difficulty.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='CSS/shared.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container">
@@ -14,7 +12,7 @@
     <div class="button_container">
         <div class="easy">
             <a href="/game?difficulty=easy">Easy</a>
-            <p>Contains airports from only Finland</p>
+            <p>Contains airports only from Finland</p>
         </div>
         <div class="medium">
             <a href="/game?difficulty=medium">Medium</a>

@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Optifly1.6</title>
-    <link href="{{url_for('static', filename='CSS/index.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{url_for('static', filename='CSS/shared.css')}}" rel="stylesheet" type="text/css">
-    <!--<link rel="stylesheet" href="../static/CSS/shared.css">
-    <link rel="stylesheet" href="../static/CSS/index.css">-->
+    <link href="{{ url_for('static', filename='CSS/index.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='CSS/shared.css') }}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <div class="container">
     <h1><b>OptiFly 1.6</b></h1>
     <div class="description">
-        <p><b>Your mission is to fly through all of the airports using the shortest possible route</b></p>
+        <p><b>Your mission is to fly through all the airports using the shortest possible route</b></p>
         <p><b>How to Play:</b>
 
-Click on the airports to chart your course. The blue marker indicates your current location.
+            Click on the airports to chart your course. The blue marker indicates your current location.
 
-Plan your route wisely, aiming to visit each airport exactly once.
+            Plan your route wisely, aiming to visit each airport exactly once.
 
-The red marker signifies your destination. You'll know you've mastered the challenge when you reach it after visiting all other airports.</p>
+            The red marker signifies your destination. You'll know you've mastered the challenge when you reach it after
+            visiting all other airports.</p>
 
-<p><b>Tips:</b>
+        <p><b>Tips:</b>
 
-Efficiency is key! Plan your route strategically to minimize your travel distance.
+            Efficiency is key! Plan your route strategically to minimize your travel distance.
 
-Keep an eye on the markers; they change color as you progress. Grey markers represent visited airports, and blue marks your current location.
+            Keep an eye on the markers; they change color as you progress. Grey markers represent visited airports, and
+            blue marks your current location.
 
-Are you ready to soar through the skies and conquer the Airport Challenge? Good luck, pilot!</p>
-    <!--</div>-->
+            Are you ready to soar through the skies and conquer the Airport Challenge? Good luck, pilot!</p>
+        <!--</div>-->
         <div class="button_container">
             <div class="newGame">
                 <a href="/difficulty" class="buttons">Play</a>
