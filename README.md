@@ -1,6 +1,6 @@
 # OptiFly 1.6
 
-##Ohjeet ohjelmiston käyttöön:
+## Ohjeet ohjelmiston käyttöön:
 
 Aja tietokannan luontiskripti (tietokantaskripti.sql)
 
@@ -23,4 +23,4 @@ OPENWEATHERMAP_API_KEY=example
 <img width="958" alt="indexpage" src="https://github.com/SamuliLam/Ohjelmisto2projekti/assets/36449245/79c3272d-7e2b-42c2-9eb2-f3c15cbaa0f3">
 <img width="960" alt="difficultypage" src="https://github.com/SamuliLam/Ohjelmisto2projekti/assets/36449245/57c50fbc-7e79-4706-be7f-bb626d46a9bc">
 <img width="946" alt="gamepage" src="https://github.com/SamuliLam/Ohjelmisto2projekti/assets/36449245/4661666c-974c-44e8-9959-eb1c6eedaa0e">
-![Uploading ending.png…]()
+<img width="944" alt="ending" src="https://github.com/SamuliLam/Ohjelmisto2projekti/assets/36449245/856008e9-288e-476f-bd19-f926078c1e41">
