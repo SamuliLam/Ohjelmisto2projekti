@@ -1,6 +1,10 @@
 from flask import jsonify, Blueprint, request
 from Backend.difficulty import return_difficulty
 from geopy import distance
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 endpoints = Blueprint('endpoints', __name__)
 
@@ -35,6 +39,14 @@ def handle_game_data():
             return jsonify({'Response': rounded_distance})
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+
+@endpoints.route('/api_key', methods=['GET'])
+def get_api_key():
+    try:
+        api_key = os.getenv('OPENWEATHERMAP_API_KEY')
+        return jsonify({'api_key': api_key})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @endpoints.errorhandler(404)

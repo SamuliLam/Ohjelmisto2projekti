@@ -91,16 +91,38 @@ async function sendAjaxRequest2(clicked_markers) {
 }
 
 function getWeather(latitudes, longitudes) {
+
     console.log("function getWeather");
-    const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitudes}&lon=${longitudes}&appid=fac105958c9a086efd423bc985ee2892&units=metric`;
-    fetch(url)
-        .then((response) => {
+    fetchApiKey().then((api_key) => {
+        const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitudes}&lon=${longitudes}&appid=${api_key}&units=metric`;
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                let weather = document.getElementById("weather");
+                weather.innerText = "Weather is " + data.weather[0].description + " and temperature is " + data.main.temp + "°C";
+            });
+    })
+        .catch((error) => {
+            console.log("Error fetching API key:", error);
+        });
+
+}
+
+function fetchApiKey() {
+    return fetch('http://127.0.0.1:5000/api_key')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             return response.json();
         })
-        .then((data) => {
-            console.log(data);
-            let weather = document.getElementById("weather");
-            weather.innerText = "Weather is " + data.weather[0].description + " and temperature is " + data.main.temp + "°C";
+        .then(data => data.api_key)
+        .catch(error => {
+            console.error('Error fetching API key:', error);
+            throw error; // Propagate the error for handling at a higher level
         });
 }
 
