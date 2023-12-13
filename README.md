@@ -1,4 +1,4 @@
-##OptiFly 1.6
+# OptiFly 1.6
 
 ##Ohjeet ohjelmiston käyttöön:
 
